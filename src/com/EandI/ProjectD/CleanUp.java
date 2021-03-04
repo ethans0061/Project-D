@@ -18,12 +18,20 @@ public class CleanUp {
         }
     }
 
+    //Imma let u guess what this one does
+    public static double calcPercent(double amount, double total) {
+        return Math.round((amount * 100) / total);
+    }
+
     public static void main(String[] args) {
 
-        int fileCount = 780;
+        int fileCount = 780; // total amount of files we want to scan
+        int goodData = 0;
+        int missingData = 0;
 
         for(int i = 0; i < fileCount; i++) {
             try {
+                //Scan file and create new output file if there is none
                 File file = new File("src/com/EandI/ProjectD/raw/tempStats (" + (i + 1) + ").txt");
                 FileWriter fileWriter = new FileWriter("src/com/EandI/ProjectD/clean/FinalTempData.txt", true);
                 Scanner scanner = new Scanner(file);
@@ -35,16 +43,34 @@ public class CleanUp {
 
                 skipLine(scanner, 3);
 
-                //Get year and temp data
                 while (scanner.hasNext()) {
+                    //Get year and temp data
                     fileData = (scanner.nextLine()).replaceAll(" ", "");
                     String year = splitString(fileData, ",", 0);
-                    String annualTemp = splitString(fileData, ",", 25);
+                    double annualTemp = Double.parseDouble(splitString(fileData, ",", 25));
 
-                    if (annualTemp.equals("-9999.9")) {
-                        annualTemp = "NA";
+                    //Some fancy optimizations to extract MORE DATA
+                    if (annualTemp == -9999.9) {
+                        double winter = Double.parseDouble(splitString(fileData, ",", 27));
+                        double spring = Double.parseDouble(splitString(fileData, ",", 29));
+                        double summer = Double.parseDouble(splitString(fileData, ",", 31));
+                        double autumn = Double.parseDouble(splitString(fileData, ",", 33));
+
+                        if (winter == -9999.9 || spring == -9999.9 || summer == -9999.9 || autumn == -9999.9) {
+                            fileWriter.write("\n" + year + ": NA");
+                            missingData++;
+                        }
+                        else {
+                            annualTemp = (winter + spring + summer + autumn) / 4;
+                            fileWriter.write("\n" + year + ": " + annualTemp);
+                            goodData++;
+                        }
                     }
-                    fileWriter.write("\n" + year + ": " + annualTemp);
+                    else {
+                        //Write to file if we gucci
+                        fileWriter.write("\n" + year + ": " + annualTemp);
+                        goodData++;
+                    }
                 }
                 scanner.close();
                 fileWriter.close();
@@ -54,5 +80,10 @@ public class CleanUp {
                 System.out.println("Error: Failed to write to file!");
             }
         }
+
+        //Debug
+        int totalData = goodData + missingData;
+        System.out.println("Good: " + goodData + " (" + calcPercent(goodData, totalData) + "%)");
+        System.out.println("Missing: " + missingData + " (" + calcPercent(missingData, totalData) + "%)");
     }
 }
