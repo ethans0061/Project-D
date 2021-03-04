@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Scanner;
 
+//Author - Ethan Stevenson
 public class CleanUp {
 
     //Splits string from given point, returns given index
