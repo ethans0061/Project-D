@@ -40,8 +40,8 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="CleanUp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.EandI.ProjectD.CleanUp" />
+    <configuration name="CleanUpRawTemp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.EandI.ProjectD.CleanUpRawTemp" />
       <module name="Project D" />
       <extension name="coverage">
         <pattern>
@@ -55,7 +55,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.CleanUp" />
+        <item itemvalue="Application.CleanUpRawTemp" />
       </list>
     </recent_temporary>
   </component>

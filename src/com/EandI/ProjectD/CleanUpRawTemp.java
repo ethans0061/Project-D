@@ -6,7 +6,7 @@ import java.math.RoundingMode;
 import java.util.Scanner;
 
 //Author - Ethan Stevenson
-public class CleanUp {
+public class CleanUpRawTemp {
 
     //Splits string from given point, returns given index
     public static String splitString(String str, String regex, int index) {
