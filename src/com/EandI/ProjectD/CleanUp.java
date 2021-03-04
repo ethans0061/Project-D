@@ -1,6 +1,8 @@
 package com.EandI.ProjectD;
 
 import java.io.*;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Scanner;
 
 public class CleanUp {
@@ -21,6 +23,14 @@ public class CleanUp {
     //Imma let u guess what this one does
     public static double calcPercent(double amount, double total) {
         return Math.round((amount * 100) / total);
+    }
+
+    //Tbh idk how this works but it does - never question the stack overflow gods
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 
     public static void main(String[] args) {
@@ -61,7 +71,7 @@ public class CleanUp {
                             missingData++;
                         }
                         else {
-                            annualTemp = (winter + spring + summer + autumn) / 4;
+                            annualTemp = round((winter + spring + summer + autumn) / 4, 1);
                             fileWriter.write("\n" + year + ": " + annualTemp);
                             goodData++;
                         }
