@@ -94,7 +94,7 @@ public class CleanUp {
 
         //Debug
         int totalData = goodData + missingData;
-        System.out.println("Good: " + goodData + " (" + calcPercent(goodData, totalData) + "%)");
-        System.out.println("Missing: " + missingData + " (" + calcPercent(missingData, totalData) + "%)");
+        System.out.println("Good: " + goodData + " out of: " + totalData + " (" + calcPercent(goodData, totalData) + "%)");
+        System.out.println("Missing: " + missingData + " out of: " + totalData + " (" + calcPercent(missingData, totalData) + "%)");
     }
 }
